@@ -4,6 +4,10 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+const userRoutes = require('./routes/userRouter');
+const AppError = require('./utils/appError');
+const globallErrorHandler = require('./controllers/errorController');
+
 const app = express();
 
 app.use(cors());
@@ -15,12 +19,20 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser);
+app.use(cookieParser());
+
+
+app.use('/api/v1/users', userRoutes);
 
 
 
+app.all('*', (req, res, next) => {
+
+   
+    next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
+
+});
 
 
-
-
+app.use(globallErrorHandler)
 module.exports = app;
