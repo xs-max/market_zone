@@ -11,14 +11,12 @@ const DB = process.env.DATABASE_LOCAL;
 
 mongoose.connect(DB, {
     useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
     useUnifiedTopology: true
  }).then(con => {
      console.log('Db connection successful!');
  }).catch(err => console.log(err.message));
 
- const port = 8000 || process.env.PORT;
+ const port = 8080 || process.env.PORT;
  const server = app.listen(port, () => {
     console.log(`App running on port ${port}`)
  });
