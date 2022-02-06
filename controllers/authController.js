@@ -31,6 +31,8 @@ const createSendToken = (user, statusCode, req, res) => {
 }
 
 exports.signUp = catchAsync(async (req, res, next) => {
+    const user = User.findOne({email: req.body.email});
+    if (user) return next(new AppError("User already exists", 400));
     const newUser = await User.create({
         name: req.body.name,
         email: req.body.email,
@@ -38,10 +40,6 @@ exports.signUp = catchAsync(async (req, res, next) => {
         passwordConfirm: req.body.passwordConfirm,
         phone: req.body.phone
     });
-
-    const url = `${req.protocol}://${req.get('host')}/me`;
-    // console.log(url);
-    await new Email(newUser, url).sendWelcome();
 
     createSendToken(newUser, 201, req, res);
     

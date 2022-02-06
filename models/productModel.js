@@ -16,16 +16,17 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'A product must have a price']
     },
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "category",
+        required: [true, "A product must have a belong to a category"]
+    },
     imageCover: {
         type: String,
         required: [true, 'A product must have a cover image']
     },
     images: [String],
-    location: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Location',
-        required: [true, 'A product must have a location'],
-    },
+   
     condition: {
         type: String,
         required: [true, 'A product must have a location']

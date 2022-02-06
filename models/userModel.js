@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema({
     photo: {
         type: String,
     },
+     location: {
+        type: String,
+        required: [true, 'A product must have a location'],
+    },
     role: {
         type: String,
         enum: ['user', 'vendor', 'admin'],
