@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
     },
      location: {
         type: String,
-        required: [true, 'A product must have a location'],
+        required: [true, 'A user must have a location'],
     },
     role: {
         type: String,
@@ -61,11 +61,6 @@ const userSchema = new mongoose.Schema({
             },
             message: 'Enter a valid phone number'
         }
-    },
-    status: {
-        type: String,
-        default: 'offline',
-        enum: ['online', 'offline']
     },
     passwordChangedAt: Date,
     passwordResetToken: String,

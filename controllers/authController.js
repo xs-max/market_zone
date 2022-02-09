@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const {promisify} = require('util');
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
-const catchAsync = require('./../utils/cactchAsync');
+const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Email = require('./../utils/email');
 
@@ -31,14 +31,16 @@ const createSendToken = (user, statusCode, req, res) => {
 }
 
 exports.signUp = catchAsync(async (req, res, next) => {
-    const user = User.findOne({email: req.body.email});
+    const user = await User.findOne({email: req.body.email});
+    console.log(user)
     if (user) return next(new AppError("User already exists", 400));
     const newUser = await User.create({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
-        phone: req.body.phone
+        phone: req.body.phone,
+        location: req.body.location
     });
 
     createSendToken(newUser, 201, req, res);
