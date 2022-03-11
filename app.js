@@ -4,9 +4,9 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-const userRoutes = require('./routes/userRouter');
-const AppError = require('./utils/appError');
-const globallErrorHandler = require('./controllers/errorController');
+const userRoutes = require('./src/routes/userRouter');
+const AppError = require('./src/utils/appError');
+const globallErrorHandler = require('./src/controllers/errorController');
 
 const app = express();
 

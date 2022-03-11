@@ -13,3 +13,7 @@ const storeSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+
+const Store = mongoose.model('Store', storeSchema);
+
+module.exports = Store;
